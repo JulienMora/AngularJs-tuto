@@ -1,5 +1,5 @@
 app.controller("myCtrl", function($scope, $log, $filter) {
-    
+
     // Variables
     $scope.myArray = [
         {
@@ -27,7 +27,7 @@ app.controller("myCtrl", function($scope, $log, $filter) {
 
     $scope.dateStart = "";
     $scope.dateEnd = "";
-
+    $scope.dateMin = new Date();
 
     //Methods
     $scope.exportCsv = (type, dateStart, dateEnd) => {
@@ -47,10 +47,10 @@ app.controller("myCtrl", function($scope, $log, $filter) {
         } else {
             $log.log("Erreur de formatage entre les dates");
         }
-    }
+    };
 
 
     $scope.testFunc = (test) => {
         $log.log(test)
-    }
+    };
 });
