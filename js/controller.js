@@ -43,6 +43,7 @@ app.controller("myCtrl", function($scope, $log, $filter) {
         $log.log("Type : " + type, "Date Start : " +  dateStartFormated, "Date End : " +  dateEndFormated);
         
         if ( diffDays >= 0 ) {
+            // Make the export
             $log.log("DateDiff : " + diffDays);
         } else {
             $log.log("Erreur de formatage entre les dates");
