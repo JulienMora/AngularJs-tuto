@@ -6,26 +6,28 @@
 </head>
 <body>
 
+<header class="indigo darken-1">
+</header>
+
 <div ng-app="myApp" ng-controller="myCtrl">
 
-    <div style="width: 70%;" ng-repeat="type in myArray">
-
-        <md-grid-list md-cols="6" md-row-height="50px" md-gutter="12px">
-            <md-grid-tile md-colspan="1">
-                <p ng-bind="type.value"></p>
-            </md-grid-tile>
-
-            <md-grid-tile  md-colspan="4">
-                <md-datepicker md-min-date="dateMin" ng-model="type.dateStart" md-placeholder="Date Start"></md-datepicker>
-                <md-datepicker md-min-date="type.dateStart" ng-model="type.dateEnd" md-placeholder="Date End"></md-datepicker>
-            </md-grid-tile>
-
-            <md-grid-tile md-colspan="1">
-                <md-button class="md-raised" ng-click="exportCsv(type.type, type.dateStart, type.dateEnd)">Export</md-button>
-            </md-grid-tile>
-
-        </md-grid-list>
-
+    <div style="width:70%;margin:auto;margin-top: 15px;" ng-repeat="type in myArray">
+        <div ng-if="type.available === true">
+                <md-grid-list md-cols="6" md-row-height="50px">
+                    <md-grid-tile md-colspan="1">
+                        <p ng-bind="type.value"></p>
+                    </md-grid-tile>
+        
+                    <md-grid-tile  md-colspan="4">
+                        <md-datepicker md-min-date="dateMin" ng-model="type.dateStart" md-placeholder="Date Start"></md-datepicker>
+                        <md-datepicker md-min-date="type.dateStart" ng-model="type.dateEnd" md-placeholder="Date End"></md-datepicker>
+                    </md-grid-tile>
+        
+                    <md-grid-tile md-colspan="1">
+                        <md-button class="md-raised" ng-click="exportCsv(type.type, type.dateStart, type.dateEnd)">Export</md-button>
+                    </md-grid-tile>
+                </md-grid-list>
+        </div>
     </div>
 
 </div>

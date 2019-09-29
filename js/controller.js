@@ -1,4 +1,4 @@
-app.controller("myCtrl", function($scope, $log, $filter) {
+app.controller("myCtrl", function($scope, $log, $filter, serviceExample) {
 
     // Variables
     $scope.myArray = [
@@ -7,21 +7,24 @@ app.controller("myCtrl", function($scope, $log, $filter) {
             type: "ZONE",
             dateStart: "",
             dateEnd: "",
-            value: "Zone Analytics"
+            value: "Zone Analytics",
+            available: true,
         },
         {
             id: 2,
             type: "HOME",
             dateStart: "",
             dateEnd: "",
-            value: "Home Analytics"
+            value: "Home Analytics",
+            available: true,
         },
         {
             id: 3,
             type: "TEST",
             dateStart: "",
             dateEnd: "",
-            value: "Test Analytics"
+            value: "Test Analytics",
+            available: false,
         }
     ];
 
@@ -45,6 +48,9 @@ app.controller("myCtrl", function($scope, $log, $filter) {
         if ( diffDays >= 0 ) {
             // Make the export
             $log.log("DateDiff : " + diffDays);
+
+            //Test service 
+            serviceExample.service();
         } else {
             $log.log("Erreur de formatage entre les dates");
         }
