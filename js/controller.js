@@ -56,6 +56,15 @@ app.controller("myCtrl", function($scope, $log, $filter, serviceExample) {
         }
     };
 
+    var prettifyPeriods = (model) => {
+        model.map(function(el) {
+            Object.assign(el, {"prettifyPeriod": "01/10/2019"});
+        });
+    };
+
+    prettifyPeriods($scope.myArray);
+
+    console.log($scope.myArray);
 
     $scope.testFunc = (test) => {
         $log.log(test)
