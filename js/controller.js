@@ -20,8 +20,8 @@ app.controller("myCtrl", function($scope, $log, $filter, serviceExample) {
             dateStart: "",
             dateEnd: "",
             rangePicker: {
-                start: "10/10/2010",
-                end: "17/10/2010"
+                start: "15/10/2010",
+                end: "24/10/2010"
             },
             value: "Home Analytics",
             available: true,
