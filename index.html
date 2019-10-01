@@ -14,6 +14,8 @@
     <div style="width:70%;margin:auto;margin-top: 15px;" ng-repeat="type in myArray">
         <h3>Prettify Period</h3>
         <p ng-bind="type.prettifyPeriod"></p>
+
+        <button ng-click="setDateRange(type.type)">Set dates range</button>
         <div ng-if="type.available === true">
                 <md-grid-list md-cols="6" md-row-height="50px">
                     <md-grid-tile md-colspan="1">

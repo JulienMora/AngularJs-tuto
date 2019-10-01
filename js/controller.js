@@ -7,6 +7,10 @@ app.controller("myCtrl", function($scope, $log, $filter, serviceExample) {
             type: "ZONE",
             dateStart: "",
             dateEnd: "",
+            rangePicker: {
+                start: "10/10/2010",
+                end: "17/10/2010"
+            },
             value: "Zone Analytics",
             available: true,
         },
@@ -15,6 +19,10 @@ app.controller("myCtrl", function($scope, $log, $filter, serviceExample) {
             type: "HOME",
             dateStart: "",
             dateEnd: "",
+            rangePicker: {
+                start: "10/10/2010",
+                end: "17/10/2010"
+            },
             value: "Home Analytics",
             available: true,
         },
@@ -56,9 +64,24 @@ app.controller("myCtrl", function($scope, $log, $filter, serviceExample) {
         }
     };
 
+    $scope.setDateRange = (type) => {
+        $log.log("click on setDateRangeFunc");
+        $scope.myArray.map(function(el) {
+            console.log(el);
+            if (el.type === type) {
+                console.log(type)
+                el.rangePicker.start = "00/00/0000";
+                el.rangePicker.end = "11/11/1111";
+            }
+        });
+    };
+
     var prettifyPeriods = (model) => {
         model.map(function(el) {
-            Object.assign(el, {"prettifyPeriod": "01/10/2019 to 02/10/2019"});
+            console.log(el)
+            if (el.rangePicker) {
+                Object.assign(el, {"prettifyPeriod": el.rangePicker.start + " to " + el.rangePicker.end});
+            }
         });
     };
 
