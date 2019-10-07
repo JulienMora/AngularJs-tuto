@@ -6,46 +6,47 @@
 </head>
 <body>
 
-<header class="indigo darken-1">
-</header>
+    <header class="indigo darken-1"></header>
 
-<div ng-app="myApp" ng-controller="myCtrl">
+    <!-- Chartjs -->
+    <div style="padding:25px;width:60%;margin:auto;">
+        <canvas id="myChart" width="400" height="400"></canvas>
+    </div>
 
-    <div style="width:70%;margin:auto;margin-top: 15px;" ng-repeat="type in myArray">
-        <h3>Prettify Period</h3>
-        <p ng-bind="type.prettifyPeriod"></p>
+    <div ng-app="myApp" ng-controller="myCtrl">
 
-        <button ng-click="setDateRange(type.type)">Set dates range</button>
-        <div ng-if="type.available === true">
+        <div style="width:70%;margin:auto;margin-top: 15px;" ng-repeat="type in myArray">
+            <h3>Prettify Period</h3>
+            <p ng-bind="type.prettifyPeriod"></p>
+
+            <button ng-click="setDateRange(type.type)">Set dates range</button>
+
+            <div ng-if="type.available === true">
                 <md-grid-list md-cols="6" md-row-height="50px">
                     <md-grid-tile md-colspan="1">
                         <p ng-bind="type.value"></p>
                     </md-grid-tile>
-        
+
                     <md-grid-tile  md-colspan="4">
                         <md-datepicker md-min-date="dateMin" ng-model="type.dateStart" md-placeholder="Date Start"></md-datepicker>
                         <md-datepicker md-min-date="type.dateStart" ng-model="type.dateEnd" md-placeholder="Date End"></md-datepicker>
                     </md-grid-tile>
-        
+                    
                     <md-grid-tile md-colspan="1">
                         <md-button class="md-raised" ng-click="exportCsv(type.type, type.dateStart, type.dateEnd)">Export</md-button>
                     </md-grid-tile>
                 </md-grid-list>
+            </div>
         </div>
+
     </div>
 
-</div>
-
-<!-- Chartjs -->
-<div style="padding:25px;width:60%;margin:auto;">
-    <canvas id="myChart" width="400" height="400"></canvas>
-</div>
     
     <!-- AngularJS Material Dependencies -->
-    <script
-        src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-        crossorigin="anonymous"></script> 
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous">
+    </script> 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.7/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.7/angular-animate.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.7/angular-aria.min.js"></script>
@@ -56,54 +57,48 @@
     <script src="./js/app.js"></script>
     <script src="./js/controller.js"></script>
 
-
-
-
     <!-- CHARTS JS -->
-
     <script>
-    /*
-    *   Chartjs 
-    */
-
-    var chartjsDatas = {
-        datas: {
-            labels: ["Tokyo",	"Mumbai",	"Mexico City",	"Shanghai",	"Sao Paulo",	"New York",	"Karachi","Buenos Aires",	"Delhi","Moscow"],
-            datasets: [{
-                label: 'Series 1', // Name the series
-                data: [500,	50,	2424,	14040,	14141,	4111,	4544,	47,	5555, 6811], // Specify the data values array
-                fill: false,
-                borderColor: '#2196f3', // Add custom color border (Line)
-                backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
-                borderWidth: 1 // Specify bar border width
+        /*
+        *   Chartjs 
+        */
+        var chartjsDatas = {
+            datas: {
+                labels: ["Tokyo",	"Mumbai",	"Mexico City",	"Shanghai",	"Sao Paulo",	"New York",	"Karachi","Buenos Aires",	"Delhi","Moscow"],
+                datasets: [{
+                    label: 'Series 1', // Name the series
+                    data: [500,	50,	2424,	14040,	14141,	4111,	4544,	47,	5555, 6811], // Specify the data values array
+                    fill: false,
+                    borderColor: '#2196f3', // Add custom color border (Line)
+                    backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
+                    borderWidth: 1 // Specify bar border width
+                },
+                        {
+                    label: 'Series 2', // Name the series
+                    data: [1288,	88942,	44545,	7588,	99,	242,	1417,	5504,	75, 457], // Specify the data values array
+                    fill: false,
+                    borderColor: '#4CAF50', // Add custom color border (Line)
+                    backgroundColor: '#4CAF50', // Add custom color background (Points and Fill)
+                    borderWidth: 1 // Specify bar border width
+                }]
             },
-                    {
-                label: 'Series 2', // Name the series
-                data: [1288,	88942,	44545,	7588,	99,	242,	1417,	5504,	75, 457], // Specify the data values array
-                fill: false,
-                borderColor: '#4CAF50', // Add custom color border (Line)
-                backgroundColor: '#4CAF50', // Add custom color background (Points and Fill)
-                borderWidth: 1 // Specify bar border width
-            }]
-        },
-        options: {
-            responsive: true, // Instruct chart js to respond nicely.
-            maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
-        }
-    };
-        
+            options: {
+                responsive: true, // Instruct chart js to respond nicely.
+                maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
+            }
+        };
+            
+        let initChartJs = () => {
+            var ctx = document.getElementById('myChart').getContext('2d');
 
-    let init = () => {
-        var ctx = document.getElementById('myChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: chartjsDatas.datas,
+                options: chartjsDatas.options
+            });
+        };
 
-        new Chart(ctx, {
-            type: 'line',
-            data: chartjsDatas.datas,
-            options: chartjsDatas.options
-        });
-    };
-
-    init();
+        initChartJs();
     </script>
 
 </body>
