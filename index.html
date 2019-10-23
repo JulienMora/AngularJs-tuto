@@ -23,7 +23,6 @@
             <input ng-class="{error: !isValidEmail}" class="form-control" type="text" ng-change="onChangeValidateEmail(email)" name="email" ng-model="email" required />
             <p style="color:red;" ng-show="!isValidEmail" class="help-block">Email is invalid.</p>
             <pre>$scope.email = {{ email }} </pre>
-            <pre style="color: green;" ng-if="isValidEmail">Email is valid</pre>
 
             <button ng-click="sendEmail(email)" ng-disabled="!isValidEmail">Send email</button>
         </div>
@@ -43,7 +42,8 @@
         };
 
         $scope.onChangeValidateEmail = (email) => {
-            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            let reAngular = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             console.log("Email : ", email);
 
             if ( email === '' || re.test(String(email).toLowerCase()) ) {
