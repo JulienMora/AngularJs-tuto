@@ -5,3 +5,7 @@ header {
   top: 0;
   display: block;
 }
+
+.myForm {
+  padding: 100px;
+}

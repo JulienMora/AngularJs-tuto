@@ -1,105 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.9/angular-material.min.css">
-    <link rel="stylesheet" href="./css/app.css">
+  <meta charset="utf-8" />
+  <title>AngularJS form validation</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
-<body>
 
-    <header class="indigo darken-1"></header>
+<body ng-app="myApp">
 
-    <!-- Chartjs -->
-    <div style="padding:25px;width:60%;margin:auto;">
-        <canvas id="myChart" width="400" height="400"></canvas>
-    </div>
+    <style>
+        .error {
+            border: 1px solid red;
+        }
+    </style>
 
-    <div ng-app="myApp" ng-controller="myCtrl">
+    <div class="container" ng-controller="formCtrl">
+        <h3>AngularJS form validation without <code>&lt;form&gt;</code> tag</h3>
+        
+        <div class="form-group" ng-form="subForm">
+            <label class="col-sm-2 control-label" ng-bind-html="question.label"></label>
+            <input ng-class="{error: !isValidEmail}" class="form-control" type="text" ng-change="onChangeValidateEmail(email)" name="email" ng-model="email" required />
+            <p style="color:red;" ng-show="!isValidEmail" class="help-block">Email is invalid.</p>
+            <pre>$scope.email = {{ email }} </pre>
+            <pre style="color: green;" ng-if="isValidEmail">Email is valid</pre>
 
-        <div style="width:70%;margin:auto;margin-top: 15px;" ng-repeat="type in myArray">
-            <h3>Prettify Period</h3>
-            <p ng-bind="type.prettifyPeriod"></p>
-
-            <button ng-click="setDateRange(type.type)">Set dates range</button>
-
-            <div ng-if="type.available === true">
-                <md-grid-list md-cols="6" md-row-height="50px">
-                    <md-grid-tile md-colspan="1">
-                        <p ng-bind="type.value"></p>
-                    </md-grid-tile>
-
-                    <md-grid-tile  md-colspan="4">
-                        <md-datepicker md-min-date="dateMin" ng-model="type.dateStart" md-placeholder="Date Start"></md-datepicker>
-                        <md-datepicker md-min-date="type.dateStart" ng-model="type.dateEnd" md-placeholder="Date End"></md-datepicker>
-                    </md-grid-tile>
-                    
-                    <md-grid-tile md-colspan="1">
-                        <md-button class="md-raised" ng-click="exportCsv(type.type, type.dateStart, type.dateEnd)">Export</md-button>
-                    </md-grid-tile>
-                </md-grid-list>
-            </div>
+            <button ng-click="sendEmail(email)">Send email</button>
         </div>
-
     </div>
 
-    
-    <!-- AngularJS Material Dependencies -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-            crossorigin="anonymous">
-    </script> 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.7/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.7/angular-animate.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.7/angular-aria.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.7/angular-messages.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.10/angular-material.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+  <script>
+  angular.module('myApp', [])
+    .controller('formCtrl',function($scope) {
+        $scope.email= '';
+        $scope.isValidEmail = '';
 
-    <script src="./js/app.js"></script>
-    <script src="./js/controller.js"></script>
+        console.log($scope.isValidEmail);
 
-    <!-- CHARTS JS -->
-    <script>
-        /*
-        *   Chartjs 
-        */
-        var chartjsDatas = {
-            datas: {
-                labels: ["Tokyo",	"Mumbai",	"Mexico City",	"Shanghai",	"Sao Paulo",	"New York",	"Karachi","Buenos Aires",	"Delhi","Moscow"],
-                datasets: [{
-                    label: 'Series 1', // Name the series
-                    data: [500,	50,	2424,	14040,	14141,	4111,	4544,	47,	5555, 6811], // Specify the data values array
-                    fill: false,
-                    borderColor: '#2196f3', // Add custom color border (Line)
-                    backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
-                    borderWidth: 1 // Specify bar border width
-                },
-                        {
-                    label: 'Series 2', // Name the series
-                    data: [1288,	88942,	44545,	7588,	99,	242,	1417,	5504,	75, 457], // Specify the data values array
-                    fill: false,
-                    borderColor: '#4CAF50', // Add custom color border (Line)
-                    backgroundColor: '#4CAF50', // Add custom color background (Points and Fill)
-                    borderWidth: 1 // Specify bar border width
-                }]
-            },
-            options: {
-                responsive: true, // Instruct chart js to respond nicely.
-                maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
+        $scope.sendEmail = (email) => {
+            console.log("Send email to : ", email);
+        };
+
+        $scope.onChangeValidateEmail = (email) => {
+            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            console.log("Email : ", email);
+
+            if ( re.test(String(email).toLowerCase()) ) {
+                console.log('Email is valid');
+                $scope.isValidEmail = true;
+            } else {
+                console.log('Email is invalid');
+                $scope.isValidEmail = false;
             }
         };
-            
-        let initChartJs = () => {
-            var ctx = document.getElementById('myChart').getContext('2d');
-
-            new Chart(ctx, {
-                type: 'line',
-                data: chartjsDatas.datas,
-                options: chartjsDatas.options
-            });
-        };
-
-        initChartJs();
-    </script>
-
+    });
+  </script>
 </body>
+
 </html>
