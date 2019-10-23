@@ -25,7 +25,7 @@
             <pre>$scope.email = {{ email }} </pre>
             <pre style="color: green;" ng-if="isValidEmail">Email is valid</pre>
 
-            <button ng-click="sendEmail(email)">Send email</button>
+            <button ng-click="sendEmail(email)" ng-disabled="!isValidEmail">Send email</button>
         </div>
     </div>
 
@@ -34,7 +34,7 @@
   angular.module('myApp', [])
     .controller('formCtrl',function($scope) {
         $scope.email= '';
-        $scope.isValidEmail = '';
+        $scope.isValidEmail = true;
 
         console.log($scope.isValidEmail);
 
@@ -46,7 +46,7 @@
             var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             console.log("Email : ", email);
 
-            if ( re.test(String(email).toLowerCase()) ) {
+            if ( email === '' || re.test(String(email).toLowerCase()) ) {
                 console.log('Email is valid');
                 $scope.isValidEmail = true;
             } else {
