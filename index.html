@@ -17,7 +17,7 @@
 
     <div class="container" ng-controller="formCtrl">
         <h3>AngularJS form validation without <code>&lt;form&gt;</code> tag</h3>
-        
+
         <div class="form-group" ng-form="subForm">
             <label class="col-sm-2 control-label" ng-bind-html="question.label"></label>
             <input ng-class="{error: !isValidEmail}" class="form-control" type="text" ng-change="onChangeValidateEmail(email)" name="email" ng-model="email" required />
@@ -29,6 +29,8 @@
     </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+
+
   <script>
   angular.module('myApp', [])
     .controller('formCtrl',function($scope) {
@@ -54,6 +56,39 @@
                 $scope.isValidEmail = false;
             }
         };
+
+
+        $scope.datas = [
+            [10, 20, 30, 40, 50, 60],
+            [11, 21, 31, 41, 51, 61],
+            [12, 22, 32, 42, 52, 62],
+            [13, 23, 33, 43, 53, 63],
+        ];
+
+        console.log("$scope.datas", $scope.datas);
+
+
+        $scope.formatedArray = [];
+
+        // $scope.formatedArray.push([ $scope.datas[0][0], $scope.datas[1][0], $scope.datas[2][0], $scope.datas[3][0] ]);
+        // $scope.formatedArray.push([ $scope.datas[0][1], $scope.datas[1][1], $scope.datas[2][1], $scope.datas[3][1] ]);
+        // $scope.formatedArray.push([ $scope.datas[0][2], $scope.datas[1][2], $scope.datas[2][2], $scope.datas[3][2] ]);
+        // $scope.formatedArray.push([ $scope.datas[0][3], $scope.datas[1][3], $scope.datas[2][3], $scope.datas[3][3] ]);
+        // $scope.formatedArray.push([ $scope.datas[0][4], $scope.datas[1][4], $scope.datas[2][4], $scope.datas[3][4] ]);
+
+        // WORKING (PARTIAL SOLUTION)
+        for (let i=0; i<$scope.datas[0].length; i++) {
+            $scope.formatedArray.push(
+                [ 
+                    $scope.datas[0][i], 
+                    $scope.datas[1][i], 
+                    $scope.datas[2][i], 
+                    $scope.datas[3][i], 
+                ]
+            );
+        };
+
+        console.log("$scope.formatedArray", $scope.formatedArray);
     });
   </script>
 </body>
