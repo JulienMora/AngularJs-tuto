@@ -28,9 +28,11 @@
         </div>
 
         <div class="checkboxes" ng-repeat="topic in checkboxesArray">
-            <input type="checkbox" name="" ng-checked="topic.checked" ng-model="check" ng-change="selectChecked(topic.topic, check)">{{topic.topic}}
+            <input type="checkbox" name="" ng-checked="topic.checked" ng-model="topic.checked" ng-change="selectChecked(topic.topic, topic.checked)">{{topic.topic}}
             <br>
         </div>
+
+        {{checkboxesArray}}
     </div>
 
     
@@ -44,8 +46,6 @@
     .controller('formCtrl',function($scope) {
         $scope.email= '';
         $scope.isValidEmail = true;
-
-        console.log($scope.isValidEmail);
 
         $scope.sendEmail = (email) => {
             console.log("Send email to : ", email);
@@ -65,16 +65,12 @@
             }
         };
 
-
         $scope.datas = [
             [10, 20, 30, 40, 50, 60],
             [11, 21, 31, 41, 51, 61],
             [12, 22, 32, 42, 52, 62],
             [13, 23, 33, 43, 53, 63],
         ];
-
-        console.log("$scope.datas", $scope.datas);
-
 
         $scope.formatedArray = [];
 
@@ -107,7 +103,7 @@
             );
         };
 
-        console.log("$scope.formatedArray", $scope.formatedArray);
+        //console.log("$scope.formatedArray", $scope.formatedArray);
 
         // Checkboxes array datas
 
@@ -144,7 +140,7 @@
             console.log("arrayinfuncupdated", $scope.checkboxesArray);
         };
 
-        console.log("$scope.checkboxesArray", $scope.checkboxesArray);
+        //console.log("$scope.checkboxesArray", $scope.checkboxesArray);
     });
   </script>
 </body>
