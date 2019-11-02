@@ -26,9 +26,17 @@
 
             <button ng-click="sendEmail(email)" ng-disabled="!isValidEmail">Send email</button>
         </div>
+
+        <div class="checkboxes" ng-repeat="topic in checkboxesArray">
+            <input type="checkbox" name="" ng-checked="topic.checked" ng-model="check" ng-change="selectChecked(topic.topic, check)">{{topic.topic}}
+            <br>
+        </div>
     </div>
 
+    
+
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
 
 
   <script>
@@ -77,6 +85,17 @@
         // $scope.formatedArray.push([ $scope.datas[0][4], $scope.datas[1][4], $scope.datas[2][4], $scope.datas[3][4] ]);
 
         // WORKING (PARTIAL SOLUTION)
+        // for (let i=0; i<$scope.datas[0].length; i++) {
+        //     $scope.formatedArray.push(
+        //         [ 
+        //             $scope.datas[0][i], 
+        //             $scope.datas[1][i], 
+        //             $scope.datas[2][i], 
+        //             $scope.datas[3][i], 
+        //         ]
+        //     );
+        // };
+
         for (let i=0; i<$scope.datas[0].length; i++) {
             $scope.formatedArray.push(
                 [ 
@@ -89,6 +108,43 @@
         };
 
         console.log("$scope.formatedArray", $scope.formatedArray);
+
+        // Checkboxes array datas
+
+        $scope.checkboxesArray = [
+            {
+                topic: "PLACE_ENTER",
+                checked: true,
+            },
+            {
+                topic: "PLACE_EXIT",
+                checked: true,
+            },
+            {
+                topic: "HOME_ENTER",
+                checked: false,
+            },
+            {
+                topic: "HOME_EXIT",
+                checked: true,
+            }
+
+        ];
+
+        $scope.selectChecked = function(topic, checked) {
+            console.log("topic : " + topic + " checked : " + checked);
+
+            $scope.checkboxesArray.forEach(element => {
+                if (element.topic === topic) {
+                    element.checked = checked;
+                }
+            });
+
+
+            console.log("arrayinfuncupdated", $scope.checkboxesArray);
+        };
+
+        console.log("$scope.checkboxesArray", $scope.checkboxesArray);
     });
   </script>
 </body>
