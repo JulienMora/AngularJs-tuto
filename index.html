@@ -48,19 +48,15 @@
         $scope.isValidEmail = true;
 
         $scope.sendEmail = (email) => {
-            console.log("Send email to : ", email);
         };
 
         $scope.onChangeValidateEmail = (email) => {
             let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             let reAngular = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            console.log("Email : ", email);
 
             if ( email === '' || re.test(String(email).toLowerCase()) ) {
-                console.log('Email is valid');
                 $scope.isValidEmail = true;
             } else {
-                console.log('Email is invalid');
                 $scope.isValidEmail = false;
             }
         };
@@ -74,24 +70,6 @@
 
         $scope.formatedArray = [];
 
-        // $scope.formatedArray.push([ $scope.datas[0][0], $scope.datas[1][0], $scope.datas[2][0], $scope.datas[3][0] ]);
-        // $scope.formatedArray.push([ $scope.datas[0][1], $scope.datas[1][1], $scope.datas[2][1], $scope.datas[3][1] ]);
-        // $scope.formatedArray.push([ $scope.datas[0][2], $scope.datas[1][2], $scope.datas[2][2], $scope.datas[3][2] ]);
-        // $scope.formatedArray.push([ $scope.datas[0][3], $scope.datas[1][3], $scope.datas[2][3], $scope.datas[3][3] ]);
-        // $scope.formatedArray.push([ $scope.datas[0][4], $scope.datas[1][4], $scope.datas[2][4], $scope.datas[3][4] ]);
-
-        // WORKING (PARTIAL SOLUTION)
-        // for (let i=0; i<$scope.datas[0].length; i++) {
-        //     $scope.formatedArray.push(
-        //         [ 
-        //             $scope.datas[0][i], 
-        //             $scope.datas[1][i], 
-        //             $scope.datas[2][i], 
-        //             $scope.datas[3][i], 
-        //         ]
-        //     );
-        // };
-
         for (let i=0; i<$scope.datas[0].length; i++) {
             $scope.formatedArray.push(
                 [ 
@@ -102,10 +80,6 @@
                 ]
             );
         };
-
-        //console.log("$scope.formatedArray", $scope.formatedArray);
-
-        // Checkboxes array datas
 
         $scope.checkboxesArray = [
             {
@@ -135,12 +109,28 @@
                     element.checked = checked;
                 }
             });
-
-
-            console.log("arrayinfuncupdated", $scope.checkboxesArray);
         };
 
-        //console.log("$scope.checkboxesArray", $scope.checkboxesArray);
+        let totalValues = ["tourist", "mexico", "museum", "theatre", "espagna"];
+        let selectedValues = ["tourist", "mexico", "espagna"];
+        $scope.formatedArray = [];
+
+        totalValues.forEach(function(val) {
+            $scope.formatedArray.push(
+                {key: val, checked: false}
+            );
+        });
+
+        $scope.formatedArray.forEach(function(val) {
+            selectedValues.forEach(function(valSelected) {
+                if (valSelected === val.key) {
+                    Object.assign(val, {checked:true});
+                }
+            });
+        });
+
+        console.log("formatedArray", $scope.formatedArray);
+
     });
   </script>
 </body>
